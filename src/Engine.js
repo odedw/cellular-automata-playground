@@ -1,13 +1,11 @@
 import World from './World';
 
 export default class Engine {
-  constructor(width, height, cols, rows, onTick, desiredFps, stats) {
+  constructor(cols, rows, onTick, desiredFps, stats) {
     let engineTime = 0,
       frameNumber = 0,
       current = new World(rows, cols),
       next = new World(rows, cols);
-
-    const cellSize = canvas.clientWidth / cols;
 
     const computeNextState = () => {
       for (let i = 0; i < rows; i++) {
