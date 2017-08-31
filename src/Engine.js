@@ -1,7 +1,7 @@
 import World from './World';
 
 export default class Engine {
-  constructor(width, height, cols, rows, onTick, desiredFps) {
+  constructor(width, height, cols, rows, onTick, desiredFps, stats) {
     let engineTime = 0,
       frameNumber = 0,
       current = new World(rows, cols),
@@ -25,8 +25,7 @@ export default class Engine {
     };
 
     const tick = timeStamp => {
-      window.requestAnimationFrame(tick);
-
+      stats.begin();
       const elapsed = timeStamp - engineTime;
       if (elapsed > 1000 / desiredFps) {
         computeNextState();
@@ -34,6 +33,8 @@ export default class Engine {
         engineTime = timeStamp - elapsed % (1000 / desiredFps);
         onTick(current);
       }
+      stats.end();
+      window.requestAnimationFrame(tick);
     };
 
     this.start = () => {
