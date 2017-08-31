@@ -1,0 +1,25 @@
+{
+  "name": "cellular-automata-playground",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack --config webpack.config.js",
+    "watch": "webpack --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/odedw/cellular-automata-playground.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/odedw/cellular-automata-playground/issues"
+  },
+  "homepage": "https://github.com/odedw/cellular-automata-playground#readme",
+  "devDependencies": {
+    "webpack": "^3.5.5"
+  }
+}
