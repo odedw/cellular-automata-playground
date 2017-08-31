@@ -4,7 +4,7 @@ export default class World {
       index = (i, j) => i * cols + j;
 
     this.get = (i, j) =>
-      i > 0 && i < rows && j > 0 && j < cols ? arr[index(i, j)] : undefined;
+      i >= 0 && i < rows && j >= 0 && j < cols ? arr[index(i, j)] : undefined;
 
     this.set = (i, j, val) => (arr[index(i, j)] = val);
 
@@ -27,7 +27,6 @@ export default class World {
       (this.get(i + 1, j + 1) || 0);
 
     //random start
-    // for (let i = 0; i < current.length; i++)
-    //   current[i] = Math.round(Math.random());
+    for (let i = 0; i < arr.length; i++) arr[i] = Math.round(Math.random());
   }
 }

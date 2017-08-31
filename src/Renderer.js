@@ -1,5 +1,5 @@
 export default class Renderer {
-  constructor(canvas, fpsElem, cols, rows) {
+  constructor(canvas, cols, rows) {
     canvas.width *= 10;
     canvas.height *= 10;
     const context = canvas.getContext('2d'),
@@ -7,7 +7,6 @@ export default class Renderer {
       cellHeight = Math.ceil(canvas.height / rows);
     let mouseDown = false;
 
-    this.renderFps = value => (fpsElem.textContent = `${value.toFixed(2)} FPS`);
     const onDraw = event => {
       if (!mouseDown) return;
 
@@ -33,10 +32,10 @@ export default class Renderer {
     canvas.addEventListener('mouseup', evt => (mouseDown = false));
 
     const colorForCell = (state, neighbours) => {
-      return state === 0 ? '#282828' : 'white';
+      return state === 1 ? 'white' : '#282828';
     };
 
-    this.render = board => {
+    this.render = world => {
       context.clearRect(0, 0, canvas.width, canvas.height);
       context.fillStyle = 'white';
       for (let i = 0; i < rows; i++) {
@@ -44,8 +43,8 @@ export default class Renderer {
           const jPx = cellWidth * j;
           const iPx = cellHeight * i;
           context.fillStyle = colorForCell(
-            board.get(i, j),
-            board.neighbours(i, j)
+            world.get(i, j),
+            world.neighbours(i, j)
           );
           context.fillRect(jPx, iPx, cellWidth, cellHeight);
         }

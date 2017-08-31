@@ -4,16 +4,14 @@ import Renderer from './Renderer';
 const canvas = document.getElementById('canvas'),
   cols = 300,
   rows = Math.ceil(canvas.clientHeight / (canvas.clientWidth / 100)),
-  renderer = new Renderer(canvas, document.getElementById('fps'), cols, rows),
+  renderer = new Renderer(canvas, cols, rows),
   engine = new Engine(
     canvas.clientWidth, //width
     canvas.clientHeight, //height
     cols, //number of columns
     rows, //number of rows
     renderer.render, //onTick
-    60, //desired fps
-    1000, //fps update interval
-    renderer.renderFps //fps updated handler
+    60 //desired fps
   );
 
 renderer.onDraw = engine.onDraw;

@@ -1,19 +1,8 @@
 import World from './World';
 
 export default class Engine {
-  constructor(
-    width,
-    height,
-    cols,
-    rows,
-    onTick,
-    desiredFps,
-    fpsUpdateInterval,
-    fpsUpdated
-  ) {
-    let fps = 0,
-      engineTime = 0,
-      fpsTime = 0,
+  constructor(width, height, cols, rows, onTick, desiredFps) {
+    let engineTime = 0,
       frameNumber = 0,
       current = new World(rows, cols),
       next = new World(rows, cols);
@@ -44,14 +33,6 @@ export default class Engine {
         frameNumber += 1;
         engineTime = timeStamp - elapsed % (1000 / desiredFps);
         onTick(current);
-      }
-
-      const fpsElapsed = timeStamp - fpsTime;
-      if (fpsElapsed > fpsUpdateInterval && fpsUpdated) {
-        fps = 1000 / fpsElapsed * frameNumber;
-        fpsTime = timeStamp;
-        frameNumber = 0;
-        fpsUpdated(fps);
       }
     };
 
