@@ -6,7 +6,7 @@ const stats = new Stats();
 stats.showPanel(0);
 document.body.appendChild(stats.dom);
 
-const pixelsPerCell = 5,
+const pixelsPerCell = 3,
   canvas = document.getElementById('canvas'),
   cols = Math.ceil(canvas.clientWidth / pixelsPerCell),
   rows = Math.ceil(canvas.clientHeight / pixelsPerCell),

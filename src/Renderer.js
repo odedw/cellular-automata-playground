@@ -38,17 +38,23 @@ export default class Renderer {
     this.render = world => {
       context.clearRect(0, 0, canvas.width, canvas.height);
       context.fillStyle = 'white';
+      const deadCells = [];
+      context.beginPath();
+      context.fillStyle = 'rgba(255, 255, 255, 255)';
       for (let i = 0; i < rows; i++) {
         for (let j = 0; j < cols; j++) {
           const jPx = cellWidth * j;
           const iPx = cellHeight * i;
-          context.fillStyle = colorForCell(
-            world.get(i, j),
-            world.neighbours(i, j)
-          );
-          context.fillRect(jPx, iPx, cellWidth, cellHeight);
+          if (world.get(i, j) === 1)
+            context.fillRect(jPx, iPx, cellWidth, cellHeight);
+          else deadCells.push[{ iPx, jPx }];
         }
       }
+      context.fillStyle = 'rgba(40, 40, 40, 255)';
+      deadCells.forEach(point =>
+        context.fillRect(point.jPx, point.iPx, cellWidth, cellHeight)
+      );
+      context.closePath();
     };
   }
 }
