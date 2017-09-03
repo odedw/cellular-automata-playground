@@ -35,25 +35,33 @@ export default class Renderer {
       return state === 1 ? 'white' : '#282828';
     };
 
-    this.render = world => {
+    this.render = (world, diff) => {
       context.clearRect(0, 0, canvas.width, canvas.height);
       context.fillStyle = 'white';
       const deadCells = [];
       context.beginPath();
       context.fillStyle = 'rgba(255, 255, 255, 255)';
-      for (let i = 0; i < rows; i++) {
-        for (let j = 0; j < cols; j++) {
-          const jPx = cellWidth * j;
-          const iPx = cellHeight * i;
-          if (world.get(i, j) === 1)
-            context.fillRect(jPx, iPx, cellWidth, cellHeight);
-          else deadCells.push[{ iPx, jPx }];
-        }
-      }
+      diff
+        .filter(cell => cell.nextState === 1)
+        .forEach(cell =>
+          context.fillRect(
+            cell.j * cellWidth,
+            cell.i * cellHeight,
+            cellWidth,
+            cellHeight
+          )
+        );
       context.fillStyle = 'rgba(40, 40, 40, 255)';
-      deadCells.forEach(point =>
-        context.fillRect(point.jPx, point.iPx, cellWidth, cellHeight)
-      );
+      diff
+        .filter(cell => cell.nextState !== 1)
+        .forEach(cell =>
+          context.fillRect(
+            cell.j * cellWidth,
+            cell.i * cellHeight,
+            cellWidth,
+            cellHeight
+          )
+        );
       context.closePath();
     };
   }

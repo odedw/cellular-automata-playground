@@ -8,28 +8,33 @@ export default class Engine {
       next = new World(rows, cols);
 
     const computeNextState = () => {
+      let nextState = 0;
+      const diff = [];
       for (let i = 0; i < rows; i++) {
         for (let j = 0; j < cols; j++) {
-          let neighbors = current.neighbours(i, j);
+          let neighbors = current.neighbours(i, j),
+            currentState = current.get(i, j);
 
-          if (neighbors === 3) next.set(i, j, 1);
-          else if (neighbors === 2) next.set(i, j, current.get(i, j));
-          else next.set(i, j, 0);
+          nextState = neighbors === 3 ? 1 : neighbors == 2 ? currentState : 0;
+          next.set(i, j, nextState);
+
+          if (currentState !== nextState) diff.push({ i, j, nextState });
         }
       }
       const temp = current;
       current = next;
       next = temp;
+      return diff;
     };
 
     const tick = timeStamp => {
       stats.begin();
       const elapsed = timeStamp - engineTime;
       if (elapsed > 1000 / desiredFps) {
-        computeNextState();
+        const diff = computeNextState();
         frameNumber += 1;
         engineTime = timeStamp - elapsed % (1000 / desiredFps);
-        onTick(current);
+        onTick(current, diff);
       }
       stats.end();
       window.requestAnimationFrame(tick);
