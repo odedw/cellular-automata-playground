@@ -1,20 +1,11 @@
 html,
 body {
   height: 100%;
-  background: #282828;
   overflow: hidden;
   margin: 0;
 }
 
-#canvas {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-}
-
-#fps {
-  position: absolute;
-  color: white;
-  top: 5px;
-  left: 5px;
+* {
+  padding: 0;
+  margin: 0;
 }
