@@ -7,7 +7,7 @@ const stats = new Stats();
 stats.showPanel(0);
 document.body.appendChild(stats.dom);
 
-const pixelsPerCell = 3,
+const pixelsPerCell = 4,
   cols = Math.ceil(window.innerWidth / pixelsPerCell),
   rows = Math.ceil(window.innerHeight / pixelsPerCell),
   renderer = new Renderer(cols, rows, pixelsPerCell, pixelsPerCell),
@@ -15,7 +15,7 @@ const pixelsPerCell = 3,
     cols, //number of columns
     rows, //number of rows
     renderer.render, //onTick
-    30, //desired fps
+    60, //desired fps
     stats
   );
 
