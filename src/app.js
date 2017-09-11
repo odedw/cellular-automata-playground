@@ -7,7 +7,7 @@ const stats = new Stats();
 stats.showPanel(0);
 document.body.appendChild(stats.dom);
 
-const pixelsPerCell = 3,
+const pixelsPerCell = 4,
   cols = Math.ceil(window.innerWidth / pixelsPerCell),
   rows = Math.ceil(window.innerHeight / pixelsPerCell),
   renderer = new Renderer(cols, rows, pixelsPerCell, pixelsPerCell),
