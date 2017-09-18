@@ -1,5 +1,5 @@
 export default class World {
-  constructor(rows, cols) {
+  constructor(rows, cols, randomStart) {
     const arr = new Uint8Array(new ArrayBuffer(rows * cols)),
       index = (i, j) => i * cols + j;
 
@@ -26,7 +26,7 @@ export default class World {
       (this.get(i + 1, j) || 0) +
       (this.get(i + 1, j + 1) || 0);
 
-    //random start
-    for (let i = 0; i < arr.length; i++) arr[i] = Math.round(Math.random());
+    if (randomStart)
+      for (let i = 0; i < arr.length; i++) arr[i] = Math.round(Math.random());
   }
 }

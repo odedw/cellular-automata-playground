@@ -4,8 +4,13 @@ export default class Engine {
   constructor(cols, rows, onTick, desiredFps, stats) {
     let engineTime = 0,
       frameNumber = 0,
-      current = new World(rows, cols),
-      next = new World(rows, cols);
+      current,
+      next,
+      birth = '',
+      survival = '',
+      randomStart = false,
+      birthMap = new Array(8),
+      survivalMap = new Array(8);
 
     const computeNextState = () => {
       let nextState = 0;
@@ -15,7 +20,8 @@ export default class Engine {
           let neighbors = current.neighbours(i, j),
             currentState = current.get(i, j);
 
-          nextState = neighbors === 3 ? 1 : neighbors == 2 ? currentState : 0;
+          nextState =
+            currentState === 1 ? survivalMap[neighbors] : birthMap[neighbors];
           next.set(i, j, nextState);
 
           if (currentState !== nextState) diff.push({ i, j, nextState });
@@ -40,7 +46,21 @@ export default class Engine {
       window.requestAnimationFrame(tick);
     };
 
-    this.start = () => {
+    const setOptions = options => {
+      birth = options.birth || '2';
+      survival = options.survival || '23';
+      for (let i = 0; i < 8; i++) {
+        birthMap[i] = birth.indexOf(i) >= 0 ? 1 : 0;
+        survivalMap[i] = survival.indexOf(i) >= 0 ? 1 : 0;
+      }
+
+      randomStart = options.randomStart;
+    };
+
+    this.start = options => {
+      setOptions(options);
+      current = new World(rows, cols, randomStart);
+      next = new World(rows, cols);
       window.requestAnimationFrame(tick);
     };
 

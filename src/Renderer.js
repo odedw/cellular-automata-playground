@@ -19,6 +19,11 @@ export default class Renderer {
 
     let mouseDown = false;
 
+    this.reset = () => {
+      graphics.beginFill(0x000000);
+      graphics.drawRect(0, 0, renderer.view.width, renderer.view.height);
+      graphics.endFill();
+    };
     const onDraw = event => {
       if (!mouseDown) return;
       const mousePos = {

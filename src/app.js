@@ -1,7 +1,8 @@
 import Engine from './Engine';
 import Renderer from './Renderer';
 import Stats from '../lib/stats.min';
-// import PIXI from '../lib/pixi.min';
+import Options from './Options';
+import PIXI from '../lib/pixi.min';
 
 const stats = new Stats();
 stats.showPanel(0);
@@ -15,9 +16,15 @@ const pixelsPerCell = 4,
     cols, //number of columns
     rows, //number of rows
     renderer.render, //onTick
-    60, //desired fps
+    30, //desired fps
     stats
   );
-
 renderer.onDraw = engine.onDraw;
-window.onload = engine.start;
+window.onload = () => {
+  const gui = new dat.GUI();
+  const options = new Options(gui, options => {
+    renderer.reset();
+    engine.start(options);
+  });
+  options.go();
+};
