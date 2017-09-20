@@ -1,16 +1,19 @@
-import World from './World';
+import World from "./World";
 
 export default class Engine {
   constructor(cols, rows, onTick, desiredFps, stats) {
     let engineTime = 0,
-      frameNumber = 0,
       current,
       next,
-      birth = '',
-      survival = '',
+      birth = "",
+      survival = "",
       randomStart = false,
       birthMap = new Array(8),
-      survivalMap = new Array(8);
+      survivalMap = new Array(8),
+      msTillNextFrame = 0,
+      lastTickTime = 0;
+
+    const msPerFrame = 1000 / desiredFps;
 
     const computeNextState = () => {
       let nextState = 0;
@@ -33,22 +36,36 @@ export default class Engine {
       return diff;
     };
 
-    const tick = timeStamp => {
-      stats.begin();
-      const elapsed = timeStamp - engineTime;
-      if (elapsed > 1000 / desiredFps) {
+    const tick = () => {
+      const startTime = performance.now(),
+        msElapsed = startTime - lastTickTime;
+      msTillNextFrame -= msElapsed;
+      if (msTillNextFrame <= 0) {
+        // console.time("step");
         const diff = computeNextState();
-        frameNumber += 1;
-        engineTime = timeStamp - elapsed % (1000 / desiredFps);
-        onTick(current, diff);
+        onTick(diff);
+        // console.timeEnd("step");
+        lastTickTime = performance.now();
+        const timeForFrame = lastTickTime - startTime;
+        msTillNextFrame = msPerFrame - timeForFrame;
+        console.log(msTillNextFrame);
+      } else {
+        lastTickTime = performance.now();
       }
-      stats.end();
+
+      // if (cur)
+      // const elapsed = timeStamp - engineTime;
+      // if (elapsed > 1000 / desiredFps) {
+      //   const diff = computeNextState();
+      //   engineTime = timeStamp - elapsed % (1000 / desiredFps);
+      //   onTick(current, diff);
+      // }
       window.requestAnimationFrame(tick);
     };
 
     const setOptions = options => {
-      birth = options.birth || '2';
-      survival = options.survival || '23';
+      birth = options.birth || "2";
+      survival = options.survival || "23";
       for (let i = 0; i < 8; i++) {
         birthMap[i] = birth.indexOf(i) >= 0 ? 1 : 0;
         survivalMap[i] = survival.indexOf(i) >= 0 ? 1 : 0;

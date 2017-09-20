@@ -5,8 +5,8 @@ export default class Renderer {
       transparent: false,
       resolution: 1
     });
-    renderer.view.style.position = 'absolute';
-    renderer.view.style.display = 'block';
+    renderer.view.style.position = "absolute";
+    renderer.view.style.display = "block";
     renderer.autoResize = true;
     renderer.resize(window.innerWidth, window.innerHeight);
     renderer.backgroundColor = 0x000000;
@@ -23,6 +23,7 @@ export default class Renderer {
       graphics.beginFill(0x000000);
       graphics.drawRect(0, 0, renderer.view.width, renderer.view.height);
       graphics.endFill();
+      renderer.render(stage);
     };
     const onDraw = event => {
       if (!mouseDown) return;
@@ -38,15 +39,16 @@ export default class Renderer {
       this.onDraw(pos.i, pos.j);
     };
 
-    stage.on('pointerdown', evt => {
+    stage.on("pointerdown", evt => {
       mouseDown = true;
       onDraw(evt);
     });
 
-    stage.on('pointermove', onDraw);
-    stage.on('pointerup', evt => (mouseDown = false));
+    stage.on("pointermove", onDraw);
+    stage.on("pointerup", evt => (mouseDown = false));
 
-    this.render = (world, diff) => {
+    this.render = diff => {
+      if (diff.length == 0) return;
       graphics.beginFill(0xffffff);
       diff
         .filter(cell => cell.nextState === 1)

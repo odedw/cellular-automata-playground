@@ -1,12 +1,12 @@
-import Engine from './Engine';
-import Renderer from './Renderer';
-import Stats from '../lib/stats.min';
-import Options from './Options';
-import PIXI from '../lib/pixi.min';
+import Engine from "./Engine";
+import Renderer from "./Renderer";
+import Stats from "../lib/stats.min";
+import Options from "./Options";
+import PIXI from "../lib/pixi.min";
 
-const stats = new Stats();
-stats.showPanel(0);
-document.body.appendChild(stats.dom);
+// const stats = new Stats();
+// stats.showPanel(0);
+// document.body.appendChild(stats.dom);
 
 const pixelsPerCell = 4,
   cols = Math.ceil(window.innerWidth / pixelsPerCell),
@@ -16,8 +16,8 @@ const pixelsPerCell = 4,
     cols, //number of columns
     rows, //number of rows
     renderer.render, //onTick
-    15, //desired fps
-    stats
+    20 //desired fps
+    // stats
   );
 renderer.onDraw = engine.onDraw;
 window.onload = () => {
