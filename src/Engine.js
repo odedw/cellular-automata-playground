@@ -11,24 +11,25 @@ export default class Engine {
       birthMap = new Array(8),
       survivalMap = new Array(8),
       msTillNextFrame = 0,
-      lastTickTime = 0;
+      lastTickTime = 0,
+      total = rows * cols,
+      isRunning = false;
 
     const msPerFrame = 1000 / desiredFps;
 
     const computeNextState = () => {
       let nextState = 0;
       const diff = [];
-      for (let i = 0; i < rows; i++) {
-        for (let j = 0; j < cols; j++) {
-          let neighbors = current.neighbours(i, j),
-            currentState = current.get(i, j);
+      for (let i = 0; i < total; i++) {
+        let neighbors = current.neighbours(i),
+          currentState = current.get(i);
 
-          nextState =
-            currentState === 1 ? survivalMap[neighbors] : birthMap[neighbors];
-          next.set(i, j, nextState);
+        nextState =
+          currentState === 1 ? survivalMap[neighbors] : birthMap[neighbors];
+        next.set(i, nextState);
 
-          if (currentState !== nextState) diff.push({ i, j, nextState });
-        }
+        if (currentState !== nextState)
+          diff.push({ i: Math.floor(i / cols), j: i % cols, nextState });
       }
       const temp = current;
       current = next;
@@ -41,26 +42,18 @@ export default class Engine {
         msElapsed = startTime - lastTickTime;
       msTillNextFrame -= msElapsed;
       if (msTillNextFrame <= 0) {
-        // console.time("step");
+        stats.begin();
         const diff = computeNextState();
         onTick(diff);
-        // console.timeEnd("step");
+        stats.end();
         lastTickTime = performance.now();
         const timeForFrame = lastTickTime - startTime;
         msTillNextFrame = msPerFrame - timeForFrame;
-        console.log(msTillNextFrame);
       } else {
         lastTickTime = performance.now();
       }
 
-      // if (cur)
-      // const elapsed = timeStamp - engineTime;
-      // if (elapsed > 1000 / desiredFps) {
-      //   const diff = computeNextState();
-      //   engineTime = timeStamp - elapsed % (1000 / desiredFps);
-      //   onTick(current, diff);
-      // }
-      window.requestAnimationFrame(tick);
+      if (isRunning) window.requestAnimationFrame(tick);
     };
 
     const setOptions = options => {
@@ -78,6 +71,16 @@ export default class Engine {
       setOptions(options);
       current = new World(rows, cols, randomStart);
       next = new World(rows, cols);
+      isRunning = true;
+      window.requestAnimationFrame(tick);
+    };
+
+    this.pause = () => {
+      isRunning = false;
+    };
+
+    this.play = () => {
+      isRunning = true;
       window.requestAnimationFrame(tick);
     };
 

@@ -3,10 +3,9 @@ export default class World {
     const arr = new Uint8Array(new ArrayBuffer(rows * cols)),
       index = (i, j) => i * cols + j;
     const neighboursIndices = new Array(cols * rows);
-    this.get = (i, j) =>
-      i >= 0 && i < rows && j >= 0 && j < cols ? arr[index(i, j)] : undefined;
+    this.get = i => (i >= 0 && i < arr.length ? arr[i] : undefined);
 
-    this.set = (i, j, val) => (arr[index(i, j)] = val);
+    this.set = (i, val) => (arr[i] = val);
 
     this.cross = (i, j) => {
       if (i - 1 > 0) arr[index(i - 1, j)] = 1;
@@ -35,8 +34,8 @@ export default class World {
           neighboursIndices[index(i, j)].push(index(i + 1, j + 1));
       }
     }
-    this.neighbours = (i, j) =>
-      neighboursIndices[index(i, j)].reduce((a, b) => a + arr[b], 0);
+    const count = (a, b) => a + arr[b];
+    this.neighbours = i => neighboursIndices[i].reduce(count, 0);
 
     if (randomStart)
       for (let i = 0; i < arr.length; i++) arr[i] = Math.round(Math.random());
