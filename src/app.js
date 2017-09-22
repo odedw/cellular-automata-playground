@@ -1,5 +1,6 @@
 import Engine from "./Engine";
-import Renderer from "./Renderer";
+// import Renderer from "./Renderer";
+import Renderer from "./CanvasRenderer";
 import Stats from "../lib/stats.min";
 import Options from "./Options";
 import PIXI from "../lib/pixi.min";
