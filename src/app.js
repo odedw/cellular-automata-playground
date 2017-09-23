@@ -17,7 +17,7 @@ const pixelsPerCell = 4,
     cols, //number of columns
     rows, //number of rows
     renderer.render, //onTick
-    20, //desired fps
+    30, //desired fps
     stats
   );
 renderer.onDraw = engine.onDraw;
