@@ -3,15 +3,13 @@ export default class Options {
     this.birth = "3";
     this.survival = "23";
     this.randomStart = true;
-    this.start = () => start(this);
+    this.reset = () => start(this);
     this.pause = pause;
     this.play = play;
     gui.add(this, "birth");
     gui.add(this, "survival");
     gui.add(this, "randomStart");
-    gui.add(this, "start");
-    gui.add(this, "pause");
-    gui.add(this, "play");
+    gui.add(this, "reset");
     gui.closed = true;
   }
 }
