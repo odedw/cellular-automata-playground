@@ -5,6 +5,14 @@ export default class Renderer {
     document.body.appendChild(canvas);
     canvas.width = window.innerWidth;
     canvas.height = document.body.offsetHeight;
+    const image = context.createImageData(canvas.width, canvas.height),
+      imageData = new Int32Array(image.data.buffer),
+      resetData = () => {
+        for (var i = 0; i < canvas.width * canvas.height; i++) {
+          imageData[i] = 0xff << 24;
+        }
+      };
+
     let mouseDown = false;
 
     const onDraw = event => {
@@ -31,37 +39,53 @@ export default class Renderer {
     canvas.addEventListener("mousemove", onDraw);
     canvas.addEventListener("mouseup", evt => (mouseDown = false));
 
+    const liveColor = 0xff | (0xff << 8) | (0xff << 16) | (0xff << 24),
+      deadColor = 0x00 | (0x00 << 8) | (0x00 << 16) | (0xff << 24);
+
+    const fillSquare = (x, y, color) => {
+      var width = cellWidth,
+        height = cellHeight;
+
+      if (x * cellWidth + width > canvas.width) {
+        width = canvas.width - x;
+      }
+
+      if (y * cellHeight + height > canvas.height) {
+        height = canvas.height - y;
+      }
+
+      if (width <= 0 || height <= 0) {
+        return;
+      }
+
+      var pointer = x * cellWidth + y * canvas.width * cellHeight,
+        rowWidth = canvas.width - cellWidth;
+
+      for (var i = 0; i < height; i++) {
+        for (var j = 0; j < width; j++) {
+          imageData[pointer] = color;
+
+          pointer++;
+        }
+        pointer += rowWidth;
+      }
+    };
+
     this.render = diff => {
-      context.fillStyle = "white";
-      const deadCells = [];
-      context.beginPath();
-      context.fillStyle = "rgba(255, 255, 255, 255)";
-      diff
-        .filter(cell => cell.nextState === 1)
-        .forEach(cell =>
-          context.fillRect(
-            cell.j * cellWidth,
-            cell.i * cellHeight,
-            cellWidth,
-            cellHeight
-          )
+      for (let i = 0; i < diff.length; i++) {
+        const cell = diff[i];
+        fillSquare(
+          cell.j,
+          cell.i,
+          cell.nextState === 1 ? liveColor : deadColor
         );
-      context.fillStyle = "rgba(0, 0, 0, 255)";
-      diff
-        .filter(cell => cell.nextState === 0)
-        .forEach(cell =>
-          context.fillRect(
-            cell.j * cellWidth,
-            cell.i * cellHeight,
-            cellWidth,
-            cellHeight
-          )
-        );
-      context.closePath();
+      }
+      context.putImageData(image, 0, 0);
     };
 
     this.reset = () => {
-      context.clearRect(0, 0, canvas.width, canvas.height);
+      resetData();
+      context.putImageData(image, 0, 0);
     };
   }
 }
