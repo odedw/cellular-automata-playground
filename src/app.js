@@ -7,7 +7,7 @@ import PIXI from "../lib/pixi.min";
 
 const stats = new Stats();
 stats.showPanel(1);
-// document.body.appendChild(stats.dom);
+document.body.appendChild(stats.dom);
 
 const pixelsPerCell = 4,
   cols = Math.ceil(window.innerWidth / pixelsPerCell),
@@ -32,5 +32,5 @@ window.onload = () => {
     engine.pause,
     engine.play
   );
-  options.start();
+  options.reset();
 };

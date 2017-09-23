@@ -1,9 +1,9 @@
 export default class Options {
-  constructor(gui, start, pause, play) {
+  constructor(gui, reset, pause, play) {
     this.birth = "3";
     this.survival = "23";
     this.randomStart = true;
-    this.reset = () => start(this);
+    this.reset = () => reset(this);
     this.pause = pause;
     this.play = play;
     gui.add(this, "birth");
