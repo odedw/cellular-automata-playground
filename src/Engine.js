@@ -19,7 +19,7 @@ export default class Engine {
 
     const computeNextState = () => {
       let nextState = 0;
-      const diff = [];
+      const diff = new Set();
       for (let i = 0; i < total; i++) {
         let neighbors = current.neighbours(i),
           currentState = current.get(i);
@@ -28,7 +28,13 @@ export default class Engine {
           currentState === 1 ? survivalMap[neighbors] : birthMap[neighbors];
         next.set(i, nextState);
 
-        if (currentState !== nextState) diff.push(i);
+        if (currentState !== nextState) {
+          diff.add(i);
+          const neighboursIndices = current.neighboursIndices[i];
+          for (let j = 0; j < neighboursIndices.length; j++) {
+            diff.add(neighboursIndices[j]);
+          }
+        }
       }
       const temp = current;
       current = next;

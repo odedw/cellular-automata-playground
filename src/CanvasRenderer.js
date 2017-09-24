@@ -72,8 +72,7 @@ export default class Renderer {
     };
 
     this.render = (world, diff) => {
-      for (let i = 0; i < diff.length; i++) {
-        const index = diff[i];
+      for (let index of diff) {
         fillSquare(
           index % cols,
           Math.floor(index / cols),
