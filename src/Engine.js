@@ -1,12 +1,12 @@
-import World from "./World";
+import World from './World';
 
 export default class Engine {
   constructor(cols, rows, onTick, desiredFps, stats) {
     let engineTime = 0,
       current,
       next,
-      birth = "",
-      survival = "",
+      birth = '',
+      survival = '',
       randomStart = false,
       birthMap = new Array(8),
       survivalMap = new Array(8),
@@ -28,8 +28,7 @@ export default class Engine {
           currentState === 1 ? survivalMap[neighbors] : birthMap[neighbors];
         next.set(i, nextState);
 
-        if (currentState !== nextState)
-          diff.push({ i: Math.floor(i / cols), j: i % cols, nextState });
+        if (currentState !== nextState) diff.push(i);
       }
       const temp = current;
       current = next;
@@ -44,7 +43,7 @@ export default class Engine {
       if (msTillNextFrame <= 0) {
         stats.begin();
         const diff = computeNextState();
-        onTick(diff);
+        onTick(current, diff);
         stats.end();
         lastTickTime = performance.now();
         const timeForFrame = lastTickTime - startTime;
@@ -57,8 +56,8 @@ export default class Engine {
     };
 
     const setOptions = options => {
-      birth = options.birth || "2";
-      survival = options.survival || "23";
+      birth = options.birth || '2';
+      survival = options.survival || '23';
       for (let i = 0; i < 8; i++) {
         birthMap[i] = birth.indexOf(i) >= 0 ? 1 : 0;
         survivalMap[i] = survival.indexOf(i) >= 0 ? 1 : 0;
