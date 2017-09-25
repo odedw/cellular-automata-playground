@@ -1,9 +1,9 @@
-import Engine from "./Engine";
+import Engine from './Engine';
 // import Renderer from "./Renderer";
-import Renderer from "./CanvasRenderer";
-import Stats from "../lib/stats.min";
-import Options from "./Options";
-import PIXI from "../lib/pixi.min";
+import Renderer from './CanvasRenderer';
+import Stats from '../lib/stats.min';
+import Options from './Options';
+import PIXI from '../lib/pixi.min';
 
 const stats = new Stats();
 stats.showPanel(1);

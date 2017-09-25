@@ -47,11 +47,11 @@ export default class Renderer {
         height = cellHeight;
 
       if (x * cellWidth + width > canvas.width) {
-        width = canvas.width - x;
+        width = canvas.width - x * cellWidth;
       }
 
       if (y * cellHeight + height > canvas.height) {
-        height = canvas.height - y;
+        height = canvas.height - y * cellHeight;
       }
 
       if (width <= 0 || height <= 0) {
@@ -59,7 +59,7 @@ export default class Renderer {
       }
 
       var pointer = x * cellWidth + y * canvas.width * cellHeight,
-        rowWidth = canvas.width - cellWidth;
+        rowWidth = canvas.width - width;
 
       for (var i = 0; i < height; i++) {
         for (var j = 0; j < width; j++) {
@@ -79,6 +79,7 @@ export default class Renderer {
           world.cells[index] ? liveColor : deadColor
         );
       }
+      fillSquare(209, 0, liveColor);
       context.putImageData(image, 0, 0);
     };
 
