@@ -1,13 +1,11 @@
 import Engine from './Engine';
-// import Renderer from "./Renderer";
 import Renderer from './CanvasRenderer';
 import Stats from '../lib/stats.min';
 import Options from './Options';
-import PIXI from '../lib/pixi.min';
 
 const stats = new Stats();
 stats.showPanel(1);
-document.body.appendChild(stats.dom);
+// document.body.appendChild(stats.dom);
 
 const pixelsPerCell = 4,
   cols = Math.ceil(window.innerWidth / pixelsPerCell),
@@ -17,7 +15,7 @@ const pixelsPerCell = 4,
     cols, //number of columns
     rows, //number of rows
     renderer.render, //onTick
-    30, //desired fps
+    60, //desired fps
     stats
   );
 renderer.onDraw = engine.onDraw;
@@ -26,7 +24,7 @@ window.onload = () => {
   const options = new Options(
     gui,
     options => {
-      renderer.reset();
+      renderer.reset(options);
       engine.start(options);
     },
     engine.pause,

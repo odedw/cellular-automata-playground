@@ -42,6 +42,16 @@ export default class Renderer {
     const liveColor = 0xff | (0xff << 8) | (0xff << 16) | (0xff << 24),
       deadColor = 0x00 | (0x00 << 8) | (0x00 << 16) | (0xff << 24);
 
+    const hexToRgb = hex => {
+      const result =
+        /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex) || '#000000';
+      return (
+        parseInt(result[1], 16) |
+        (parseInt(result[2], 16) << 8) |
+        (parseInt(result[3], 16) << 16) |
+        (0xff << 24)
+      );
+    };
     const fillSquare = (x, y, color) => {
       var width = cellWidth,
         height = cellHeight;
@@ -76,15 +86,18 @@ export default class Renderer {
         fillSquare(
           index % cols,
           Math.floor(index / cols),
-          world.cells[index] ? liveColor : deadColor
+          world.cells[index] === 1
+            ? this.colors[world.neighbours(index)]
+            : // ? liveColor
+              deadColor
         );
       }
-      fillSquare(209, 0, liveColor);
       context.putImageData(image, 0, 0);
     };
 
-    this.reset = () => {
+    this.reset = options => {
       resetData();
+      this.colors = options.colors.map(hexToRgb);
       context.putImageData(image, 0, 0);
     };
   }
