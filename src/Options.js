@@ -1,79 +1,88 @@
 export default class Options {
   constructor(gui, reset, pause, play) {
+    this.model = {
+      birth: "3",
+      survival: "23",
+      randomStart: true,
+      colors: new Array(9)
+    };
+    this.methods = {
+      reset: () => reset(this.model),
+      pause,
+      play,
+      resetColors: () => {
+        for (let i = 0; i < this.model.colors.length; i++)
+          this.model.colors[i] = "#FFFFFF";
+      },
+      random: () => {
+        for (let i = 0; i < this.model.colors.length; i++) {
+          this.model.colors[i] = randomColor();
+        }
+      },
+      blackWhite: () => this.methods.resetColors(),
+      tweet: () =>
+        window.open(
+          "https://twitter.com/intent/tweet?text=Hello%20world",
+          "_blank",
+          "location=yes"
+        ),
+      copyLink: () => {
+        const str = btoa(JSON.stringify(this.model));
+        console.log(str);
+      },
+      about: () =>
+        window.open(
+          "https://github.com/odedw/cellular-automata-playground/blob/master/README.md",
+          "_blank"
+        )
+    };
+    const letters = "0123456789ABCDEF",
+      randomColor = () => {
+        let color = "#";
+        for (let i = 0; i < 6; i++) {
+          color += letters[Math.floor(Math.random() * 16)];
+        }
+        return color;
+      };
+
     //rules
-    this.birth = "3";
-    this.survival = "23";
-    this.randomStart = true;
-    this.reset = () => reset(this);
-    this.pause = pause;
-    this.play = play;
     const rulesFolder = gui.addFolder("rules");
-    rulesFolder.add(this, "birth");
-    rulesFolder.add(this, "survival");
-    gui.closed = true;
+    rulesFolder.add(this.model, "birth");
+    rulesFolder.add(this.model, "survival");
 
     //colors
-    const colorsFolders = gui.addFolder("colors by neighbours");
-    this.colors = [];
-    const resetColors = () => {
-      this.colors[0] = "";
-      this.colors[1] = "#FFFFFF";
-      this.colors[2] = "#FFFFFF";
-      this.colors[3] = "#FFFFFF";
-      this.colors[4] = "#FFFFFF";
-      this.colors[5] = "#FFFFFF";
-      this.colors[6] = "#FFFFFF";
-      this.colors[7] = "#FFFFFF";
-      this.colors[8] = "#FFFFFF";
-    };
-    resetColors();
-    const letters = "0123456789ABCDEF";
-    const randomColor = () => {
-      let color = "#";
-      for (let i = 0; i < 6; i++) {
-        color += letters[Math.floor(Math.random() * 16)];
-      }
-      return color;
-    };
-    this.colors.random = () => {
-      for (let i = 0; i < this.colors.length; i++) {
-        this.colors[i] = randomColor();
-      }
-    };
-    this.colors.blackWhite = () => resetColors();
-    colorsFolders.addColor(this.colors, "1").listen();
-    colorsFolders.addColor(this.colors, "2").listen();
-    colorsFolders.addColor(this.colors, "3").listen();
-    colorsFolders.addColor(this.colors, "4").listen();
-    colorsFolders.addColor(this.colors, "5").listen();
-    colorsFolders.addColor(this.colors, "6").listen();
-    colorsFolders.addColor(this.colors, "7").listen();
-    colorsFolders.addColor(this.colors, "8").listen();
-    colorsFolders.add(this.colors, "random");
-    colorsFolders.add(this.colors, "blackWhite").name("black & white");
+    const colorsFolder = gui.addFolder("colors by neighbours");
+    this.methods.resetColors();
+    for (let i = 1; i < this.model.colors.length; i++) {
+      colorsFolder.addColor(this.model.colors, i).listen();
+    }
+    colorsFolder.add(this.methods, "random");
+    colorsFolder.add(this.methods, "blackWhite").name("black & white");
 
     //share
-    const shareFolder = gui.addFolder("share");
-    this.tweet = () =>
-      window.open(
-        "https://twitter.com/intent/tweet?text=Hello%20world",
-        "_blank",
-        "location=yes"
-      );
-    shareFolder.add(this, "tweet");
-    this.copyLink = () => {};
-    shareFolder.add(this, "copyLink").name("copy link");
+    // const shareFolder = gui.addFolder("share");
+    // shareFolder.add(this.methods, "tweet");
+    // shareFolder.add(this.methods, "copyLink").name("copy link");
 
     gui
-      .add(this, "randomStart")
+      .add(this.model, "randomStart")
       .name("random start")
       .listen();
-    gui.add(this, "reset").name("set & go");
-    this.about = () =>
-      window.open(
-        "https://github.com/odedw/cellular-automata-playground/blob/master/README.md",
-        "_blank"
-      );
-    gui.add(this, "about");
+    gui.add(this.methods, "reset").name("set & go");
+    gui.add(this.methods, "about");
+
+    gui.closed = true;
+    document.onkeydown = ev => {
+      if (ev.keyCode == 32) {
+        //space
+        this.methods.reset();
+      } else if (ev.keyCode == 82) {
+        //r
+        this.model.randomStart = !this.model.randomStart;
+      } else if (ev.keyCode == 67) {
+        //c
+        this.methods.random();
+      }
+    };
   }
 }

@@ -23,25 +23,12 @@ window.onload = () => {
   const gui = new dat.GUI();
   const options = new Options(
     gui,
-    options => {
-      renderer.reset(options);
-      engine.start(options);
+    model => {
+      renderer.reset(model);
+      engine.start(model);
     },
     engine.pause,
     engine.play
   );
-  options.reset();
-  document.onkeydown = ev => {
-    console.log(ev.keyCode);
-    if (ev.keyCode == 32) {
-      //space
-      options.reset();
-    } else if (ev.keyCode == 82) {
-      //r
-      options.randomStart = !options.randomStart;
-    } else if (ev.keyCode == 67) {
-      //c
-      options.colors.random();
-    }
-  };
+  options.methods.reset();
 };

@@ -1,7 +1,7 @@
 export default class Renderer {
   constructor(cols, rows, cellWidth, cellHeight) {
-    const canvas = document.createElement('canvas'),
-      context = canvas.getContext('2d');
+    const canvas = document.createElement("canvas"),
+      context = canvas.getContext("2d");
     document.body.appendChild(canvas);
     canvas.width = window.innerWidth;
     canvas.height = document.body.offsetHeight;
@@ -31,20 +31,20 @@ export default class Renderer {
       this.onDraw(pos.i, pos.j);
     };
 
-    canvas.addEventListener('mousedown', evt => {
+    canvas.addEventListener("mousedown", evt => {
       mouseDown = true;
       onDraw(evt);
     });
 
-    canvas.addEventListener('mousemove', onDraw);
-    canvas.addEventListener('mouseup', evt => (mouseDown = false));
+    canvas.addEventListener("mousemove", onDraw);
+    canvas.addEventListener("mouseup", evt => (mouseDown = false));
 
     const liveColor = 0xff | (0xff << 8) | (0xff << 16) | (0xff << 24),
       deadColor = 0x00 | (0x00 << 8) | (0x00 << 16) | (0xff << 24);
 
     const hexToRgb = hex => {
       const result =
-        /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex) || '#000000';
+        /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex) || "#000000";
       return (
         parseInt(result[1], 16) |
         (parseInt(result[2], 16) << 8) |
@@ -95,9 +95,9 @@ export default class Renderer {
       context.putImageData(image, 0, 0);
     };
 
-    this.reset = options => {
+    this.reset = model => {
       resetData();
-      this.colors = options.colors.map(hexToRgb);
+      this.colors = model.colors.map(hexToRgb);
       context.putImageData(image, 0, 0);
     };
   }

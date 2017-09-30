@@ -1,12 +1,12 @@
-import World from './World';
+import World from "./World";
 
 export default class Engine {
   constructor(cols, rows, onTick, desiredFps, stats) {
     let engineTime = 0,
       current,
       next,
-      birth = '',
-      survival = '',
+      birth = "",
+      survival = "",
       randomStart = false,
       birthMap = new Array(8),
       survivalMap = new Array(8),
@@ -61,19 +61,19 @@ export default class Engine {
       if (isRunning) window.requestAnimationFrame(tick);
     };
 
-    const setOptions = options => {
-      birth = options.birth || '2';
-      survival = options.survival || '23';
+    const setModel = model => {
+      birth = model.birth || "3";
+      survival = model.survival || "23";
       for (let i = 0; i < 8; i++) {
         birthMap[i] = birth.indexOf(i) >= 0 ? 1 : 0;
         survivalMap[i] = survival.indexOf(i) >= 0 ? 1 : 0;
       }
 
-      randomStart = options.randomStart;
+      randomStart = model.randomStart;
     };
 
-    this.start = options => {
-      setOptions(options);
+    this.start = model => {
+      setModel(model);
       current = new World(rows, cols, randomStart);
       next = new World(rows, cols);
       isRunning = true;
