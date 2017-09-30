@@ -1,7 +1,7 @@
-import Engine from './Engine';
-import Renderer from './CanvasRenderer';
-import Stats from '../lib/stats.min';
-import Options from './Options';
+import Engine from "./Engine";
+import Renderer from "./CanvasRenderer";
+import Stats from "../lib/stats.min";
+import Options from "./Options";
 
 const stats = new Stats();
 stats.showPanel(1);
@@ -31,4 +31,17 @@ window.onload = () => {
     engine.play
   );
   options.reset();
+  document.onkeydown = ev => {
+    console.log(ev.keyCode);
+    if (ev.keyCode == 32) {
+      //space
+      options.reset();
+    } else if (ev.keyCode == 82) {
+      //r
+      options.randomStart = !options.randomStart;
+    } else if (ev.keyCode == 67) {
+      //c
+      options.colors.random();
+    }
+  };
 };
