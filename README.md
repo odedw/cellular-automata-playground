@@ -38,10 +38,13 @@ This implementation is using the `CanvasRenderingContext2D` interface. I am init
 
 ## Examples
 B2345/S2345
+
 ![B2345/S2345](https://media.giphy.com/media/3o7aDgsfvgNxxwdjz2/giphy.gif)
 
 B3/S2345
+
 ![B3/S2345](https://media.giphy.com/media/26n798XxNu7t1OZTq/giphy.gif)
 
 B45/S2345
+
 ![B45/S2345](https://media.giphy.com/media/3ov9k6DaKsnqTfLSzm/giphy.gif)
