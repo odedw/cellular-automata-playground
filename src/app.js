@@ -1,7 +1,7 @@
-import Engine from "./Engine";
-import Renderer from "./CanvasRenderer";
-import Stats from "../lib/stats.min";
-import Options from "./Options";
+import Engine from './Engine';
+import Renderer from './CanvasRenderer';
+import Stats from '../lib/stats.min';
+import Options from './Options';
 
 const stats = new Stats();
 stats.showPanel(1);
@@ -15,7 +15,7 @@ const pixelsPerCell = 4,
     cols, //number of columns
     rows, //number of rows
     renderer.render, //onTick
-    60, //desired fps
+    30, //desired fps
     stats
   );
 renderer.onDraw = engine.onDraw;
