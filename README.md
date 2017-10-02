@@ -2,7 +2,7 @@
 
 This project is a way to explore different rules and colors for life-like cellular automata. The parameters can be changed via the interface on the top right corner.
 
-![Example](https://i.imgur.com/ApYpR9J.gif)
+![Example](https://media.giphy.com/media/xT9IgxaYMAc0hHyeWY/giphy.gif)
 
 A cellular automaton is [Life-like](https://en.wikipedia.org/wiki/Life-like_cellular_automaton) (in the sense of being similar to Conway's Game of Life) if it meets the following criteria:
 
@@ -41,7 +41,7 @@ This implementation is using the `CanvasRenderingContext2D` interface. I am init
 ## Examples
 B2345/S2345
 
-![B2345/S2345](https://media.giphy.com/media/3ov9kbDsqBQX4hYy4g/giphy.gif)
+![B2345/S2345](https://media.giphy.com/media/xT9Igx5s3gcYzqQclq/giphy.gif)
 
 B3/S2345
 
