@@ -38,8 +38,10 @@ export default class Options {
         );
       },
       go: () => {
-        mixpanel.track('Go Click');
-        reset();
+        mixpanel.track('Go Click', {
+          Rules: `B${this.model.birth}/S${this.model.survival}`
+        });
+        reset(this.model);
       }
     };
     const letters = '0123456789ABCDEF',
