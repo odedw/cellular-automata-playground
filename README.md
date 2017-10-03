@@ -2,7 +2,7 @@
 
 This project is a way to explore different rules and colors for life-like cellular automata. The parameters can be changed via the interface on the top right corner.
 
-![Imgur](https://i.imgur.com/ji3l0An.gif)
+![Imgur](https://github.com/odedw/cellular-automata-playground/raw/master/giphy-downsized-large.gif)
 
 A cellular automaton is [Life-like](https://en.wikipedia.org/wiki/Life-like_cellular_automaton) (in the sense of being similar to Conway's Game of Life) if it meets the following criteria:
 
