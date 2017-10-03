@@ -19,7 +19,8 @@ const pixelsPerCell = 4,
     stats
   );
 renderer.onDraw = engine.onDraw;
-window.onload = () => {
+window.addEventListener('load', () => {
+  mixpanel.track('View');
   const gui = new dat.GUI();
   const options = new Options(
     gui,
@@ -31,4 +32,4 @@ window.onload = () => {
     engine.play
   );
   options.methods.reset();
-};
+});
