@@ -41,7 +41,7 @@ This implementation is using the `CanvasRenderingContext2D` interface. I am init
 ## Examples
 B2345/S2345
 
-![B2345/S2345](https://media.giphy.com/media/xT9Igx5s3gcYzqQclq/giphy-downsized-large.gif)
+![B2345/S2345](https://i.imgur.com/2S0ac6L.gif)
 
 B3/S2345
 
