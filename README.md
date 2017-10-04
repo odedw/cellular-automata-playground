@@ -18,7 +18,9 @@ The rules are written as a string where each of characters is a sequence of dist
 
 The presence of a digit ***d*** in the 'birth' parameter means that a dead cell with ***d*** live neighbors becomes alive in the next generation of the pattern and the presence of ***d*** in the 'survival' parameter means that a live cell with ***d*** live neighbors survives into the next generation.
 
-![Rules](https://i.imgur.com/w3rFNz1.png?1)
+Clicking on 'random' will create randomized rules.
+
+![Rules](https://i.imgur.com/zRKPoAW.png?1)
 
 ## Colors
 The color of a living cell is determined by the number of living neighbours it has.
@@ -29,6 +31,8 @@ Clicking on 'random' will select random colors, while clicking on 'black & white
 
 ## Keyboard Shortcuts
   `R` - Toggle 'random start'.
+
+  `B` - Randomize rules.
 
   `C` - Randomize colors.
 
