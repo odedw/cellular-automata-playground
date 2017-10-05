@@ -92,12 +92,16 @@ export default class Renderer {
               deadColor
         );
       }
+      if (this.model.renderCenter) {
+        fillSquare(Math.round(cols / 2), Math.round(rows / 2), liveColor);
+      }
       context.putImageData(image, 0, 0);
     };
 
     this.reset = model => {
       resetData();
       this.colors = model.colors.map(hexToRgb);
+      this.model = model;
       context.putImageData(image, 0, 0);
     };
   }

@@ -4,7 +4,9 @@ export default class Options {
       birth: "3",
       survival: "23",
       randomStart: true,
-      colors: new Array(9)
+      colors: new Array(9),
+      visible: true,
+      renderCenter: false
     };
     this.methods = {
       reset: () => reset(this.model),
@@ -105,6 +107,14 @@ export default class Options {
       } else if (ev.keyCode == 66) {
         //c
         this.methods.randomRules();
+      } else if (ev.keyCode == 68) {
+        //d
+        document.getElementsByClassName(
+          "close-button"
+        )[0].style.visibility = this.model.visible ? "hidden" : "initial";
+        this.model.visible = !this.model.visible;
+      } else if (ev.keyCode == 69) {
+        this.model.renderCenter = !this.model.renderCenter;
       }
     };
   }
