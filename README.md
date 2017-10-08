@@ -1,6 +1,6 @@
 # Life-like Cellular Automata Playground
 
-This project is a way to explore different rules and colors for life-like cellular automata. The parameters can be changed via the interface on the top right corner.
+This project is a way to explore different rules and colors for life-like cellular automata. The parameters can be changed via the interface on the top right corner. Here is a compilation of some interesting automata I found with the tool - [https://www.youtube.com/watch?v=ICpImf7Y3pc](https://www.youtube.com/watch?v=ICpImf7Y3pc)
 
 ![Imgur](https://github.com/odedw/cellular-automata-playground/raw/gifs/giphy-downsized-large.gif)
 
