@@ -1,4 +1,4 @@
-# Life-like Cellular Automata Playground
+# [Life-like Cellular Automata Playground](https://bit.ly/cellular-automata)
 
 This project is a way to explore different rules and colors for life-like cellular automata. The parameters can be changed via the interface on the top right corner. Here is a compilation of some interesting automata I found with the tool - [https://www.youtube.com/watch?v=ICpImf7Y3pc](https://www.youtube.com/watch?v=ICpImf7Y3pc)
 
