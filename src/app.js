@@ -1,13 +1,13 @@
-import Engine from './Engine';
-import Renderer from './CanvasRenderer';
-import Stats from '../lib/stats.min';
-import Options from './Options';
+import Engine from "./Engine";
+import Renderer from "./CanvasRenderer";
+import Stats from "../lib/stats.min";
+import Options from "./Options";
 
 const stats = new Stats();
 stats.showPanel(1);
 // document.body.appendChild(stats.dom);
 
-const pixelsPerCell = 4,
+const pixelsPerCell = 3,
   cols = Math.ceil(window.innerWidth / pixelsPerCell),
   rows = Math.ceil(window.innerHeight / pixelsPerCell),
   renderer = new Renderer(cols, rows, pixelsPerCell, pixelsPerCell),
@@ -19,8 +19,8 @@ const pixelsPerCell = 4,
     stats
   );
 renderer.onDraw = engine.onDraw;
-window.addEventListener('load', () => {
-  mixpanel.track('View');
+window.addEventListener("load", () => {
+  mixpanel.track("View");
   const gui = new dat.GUI();
   const options = new Options(
     gui,
