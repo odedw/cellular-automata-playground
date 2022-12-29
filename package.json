@@ -20,7 +20,7 @@
   },
   "homepage": "https://github.com/odedw/cellular-automata-playground#readme",
   "devDependencies": {
-    "webpack": "^3.5.5"
+    "webpack": "^5.75.0"
   },
   "dependencies": {
     "pixi.js": "^4.5.5"
